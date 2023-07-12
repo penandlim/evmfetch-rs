@@ -20,6 +20,8 @@ jobs:
         override: true
     - name: Build
       run: cargo build --release
+    - name: Set execute permission
+      run: chmod +x target/release/evmfetch
     - name: Create tarball
       run: tar -czvf evmfetch-rs.tar.gz -C target/release evmfetch
     - name: Archive artifacts
