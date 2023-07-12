@@ -20,8 +20,10 @@ jobs:
         override: true
     - name: Build
       run: cargo build --release
+    - name: Create tarball
+      run: tar -czvf evmfetch-rs.tar.gz -C target/release evmfetch
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
       with:
         name: evmfetch-rs
-        path: target/release/evmfetch
+        path: evmfetch-rs.tar.gz
