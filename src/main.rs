@@ -21,6 +21,11 @@ fn parse_arguments() -> clap::ArgMatches {
                 .help("The contract address")
                 .required(true),
         )
+        .arg(
+            Arg::with_name("api_key")
+                .help("The Etherscan API key for given chain ID")
+                .required(true),
+        )
         .get_matches()
 }
 
@@ -34,6 +39,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let command = args.value_of("command").unwrap();
     let chain_id = args.value_of("chain_id").unwrap();
     let contract_address = args.value_of("contract_address").unwrap();
+    let api_key = args.value_of("api_key").unwrap();
 
     // Determine the base api URL based on the chain ID
     let base_url = match chain_id {
@@ -48,9 +54,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             std::process::exit(1);
         }
     };
-
-    // Etherscan API parameters
-    let api_key = "YOUR_API_KEY";
 
     match command {
         "abi" => {
